@@ -47,7 +47,7 @@ const userController = {
         }
         // Generate JWT token
         const token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET, {
-          expiresIn: "15m",
+          expiresIn: "30m",
         });
         res.json({ message: 'Login successful.', token });
       } catch (error) {
