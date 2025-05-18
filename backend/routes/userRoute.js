@@ -286,5 +286,6 @@ router.get('/all', authenticateToken, userController.getAllUsers);
  *                   type: string
  */
 router.get('/:id', authenticateToken, userController.getUserById);
+router.get('validate-token', authenticateToken, userController.validateToken);
 
 module.exports = router;

@@ -2,34 +2,29 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
+import { useAuth } from "@/context/AuthContext";
+
 import Button from "./Button";
 
 export default function Navbar() {
+  // const [isMounted, setIsMounted] = useState(false);
+
+  const { token, setToken } = useAuth();
   const router = useRouter();
-  const [token, setToken] = useState<string | null>(null);
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  useEffect(() => {
-    const storedToken = localStorage.getItem("token");
-    setToken(storedToken);
-  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    setToken(null);
     router.push("/login");
   };
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  // useEffect(() => {
+  //   setIsMounted(true);
+  // }, []);
 
-  if (!isMounted) {
-    return null; // Prevent hydration mismatch
-  }
+  // if (!isMounted) {
+  //   return null; // Prevent hydration mismatch
+  // }
 
   return (
     <nav className="bg-red-950 text-white p-6 shadow-md flex justify-between font-light text-xl items-center">
@@ -40,19 +35,19 @@ export default function Navbar() {
       <div className="space-x-4">
         {token ? (
           <>
-            <Link href="/dashboard" className="hover:text-primary">
+            <Link href="/dashboard" className="hover:text-primary hover:font-bold transition-all duration-300">
               Dashboard
             </Link>
-            <Link href="/new" className="hover:text-primary">
+            <Link href="/new" className="hover:text-primary hover:font-bold transition-all duration-200">
               Add Employee
             </Link>
-            <Button onClick={handleLogout} className="hover:border-neutral-500">
+            <Button onClick={handleLogout} className="hover:border-neutral-500 hover:font-bold transition-all duration-300">
               Logout
             </Button>
           </>
         ) : (
           <>
-            <Link href="/login" className="hover:text-primary">
+            <Link href="/login" className="hover:text-primary hover:font-bold ">
               Login
             </Link>
           </>

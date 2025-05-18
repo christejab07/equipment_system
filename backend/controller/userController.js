@@ -37,7 +37,7 @@ const userController = {
     async (req, res) => {
       const errors = validationResult(req);
       if (!errors.isEmpty())
-        return res.status(400).json({ errors: errors.array()});
+        return res.status(400).json({ errors: errors.array() });
 
       const { email, password } = req.body;
       try {
@@ -46,10 +46,14 @@ const userController = {
           return res.status(401).json({ message: "Invalid credentials." });
         }
         // Generate JWT token
-        const token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET, {
-          expiresIn: "30m",
-        });
-        res.json({ message: 'Login successful.', token });
+        const token = jwt.sign(
+          { id: user.id, email: user.email },
+          process.env.JWT_SECRET,
+          {
+            expiresIn: "30m",
+          }
+        );
+        res.json({ message: "Login successful.", token });
       } catch (error) {
         console.error("Error during login:", error.message);
         res.status(500).json({ message: "Server error", error: error });
@@ -88,6 +92,18 @@ const userController = {
       res.status(500).json({ message: "Server error.", error: error.message });
     }
   },
-};
+  async validateToken(req, res) {
+    const authHeader = req.headers.authorization;
+    const token = authHeader && authHeader.split(" ")[1];
 
+    if (!token) return res.status(401).json({ error: "Token missing" });
+
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      res.status(200).json({ valid: true, user: decoded });
+    } catch (err) {
+      res.status(401).json({ error: "Invalid or expired token" });
+    }
+  },
+};
 module.exports = userController;

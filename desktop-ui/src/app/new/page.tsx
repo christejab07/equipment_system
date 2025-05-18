@@ -5,6 +5,7 @@ import Button from "@/components/Button";
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 
 export default function NewEmployeePage() {
@@ -25,14 +26,33 @@ export default function NewEmployeePage() {
 
   // Check if user is logged in
   useEffect(() => {
-    const storedToken = localStorage.getItem("token");
-    if (!storedToken) {
-      toast.error("You must be logged in to access this page");
+  const storedToken = localStorage.getItem("token");
+
+  if (!storedToken) {
+    toast.error("You must be logged in to view this page");
+    router.push("/login");
+  } else {
+    try {
+      const decoded: { exp: number } = jwtDecode(storedToken);
+      const now = Date.now() / 1000;
+
+      if (decoded.exp < now) {
+        // Token expired
+        localStorage.removeItem('token');
+        toast.error("Session expired. Please log in again.");
+        router.push("/login");
+      } else {
+        setToken(storedToken);
+      }
+    } catch (e) {
+      // If token is malformed
+      console.error("Invalid token", e);
+      localStorage.removeItem('token');
+      toast.error("Invalid token");
       router.push("/login");
-    } else {
-      setToken(storedToken);
     }
-  }, [router]);
+  }
+}, [router]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -73,7 +93,7 @@ export default function NewEmployeePage() {
   };
 
   return (
-    <main className="min-h-screen p-6">
+    <main className="min-h-[90vh] p-6">
       <div className="max-w-3xl mx-auto bg-gray-900 p-8 rounded shadow-lg">
         <h2 className="text-2xl font-bold mb-6">Register Employee</h2>
         <form onSubmit={handleSubmit}>

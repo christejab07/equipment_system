@@ -245,6 +245,7 @@ router.post('/create', authenticateToken, employeeController.createEmployee);
  *                   type: string
  */
 router.get('/all', authenticateToken, employeeController.getEmployees);
+router.get('/allPerPage', authenticateToken, employeeController.getEmployeesPerPage);
 
 /**
  * @swagger
