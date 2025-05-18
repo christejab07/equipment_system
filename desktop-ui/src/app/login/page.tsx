@@ -40,7 +40,7 @@ export default function LoginPage() {
 
   return (
     <main className="min-h-[90vh] flex items-center justify-center px-4">
-      <form onSubmit={handleSubmit} className="w-full max-w-md bg-gray-900 p-8 rounded shadow-lg">
+      <form onSubmit={handleSubmit} className="w-full max-w-md bg-gray-100 p-8 rounded shadow-lg">
         <h1 className="text-2xl font-bold mb-6 text-center">Login</h1>
         <Input label="Email" name="email" type="email" value={email} onChange={e => setEmail(e.target.value)} required />
         <Input label="Password" name="password" type="password" value={password} onChange={e => setPassword(e.target.value)} required />

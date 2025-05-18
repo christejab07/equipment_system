@@ -110,12 +110,12 @@ useEffect(() => {
 
   return (
     <main className="min-h-[90vh] p-6">
-      <div className="max-w-6xl mx-auto bg-gray-900 p-8 rounded shadow">
+      <div className="max-w-6xl mx-auto p-8 rounded shadow">
         <h1 className="text-2xl font-bold mb-6">Employee List</h1>
         <div className="overflow-x-auto">
-          <table className="min-w-full text-sm text-white">
+          <table className="min-w-full text-sm">
             <thead>
-              <tr className="bg-gray-800 text-left">
+              <tr className="bg-gray-800 border text-left text-white">
                 <th className="p-4">Name</th>
                 <th className="p-4">National ID</th>
                 <th className="p-4">Phone</th>
@@ -126,7 +126,7 @@ useEffect(() => {
             </thead>
             <tbody>
               {employees.map((emp) => (
-                <tr key={emp.id} className="border-t border-gray-700">
+                <tr key={emp.id} className="border border-gray-700 text-black">
                   <td className="p-4">
                     {emp.firstname} {emp.lastname}
                   </td>

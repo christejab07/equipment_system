@@ -93,8 +93,8 @@ export default function NewEmployeePage() {
   };
 
   return (
-    <main className="min-h-[90vh] p-6">
-      <div className="max-w-3xl mx-auto bg-gray-900 p-8 rounded shadow-lg">
+    <main className="min-h-[80vh] p-6">
+      <div className="max-w-3xl mx-auto p-8 rounded shadow-lg">
         <h2 className="text-2xl font-bold mb-6">Register Employee</h2>
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

@@ -18,7 +18,7 @@ export default function Input({ label, name, type = 'text', value, onChange, req
         value={value}
         onChange={onChange}
         required={required}
-        className="px-3 py-2 bg-gray-800 text-white border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-primary"
+        className="px-3 py-2 bg-transparent text-black border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-primary"
       />
     </div>
   );
