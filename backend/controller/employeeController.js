@@ -54,27 +54,9 @@ const employeeController = {
   ],
 
   getEmployees: [
-    check("page")
-      .optional()
-      .isInt({ min: 1 })
-      .toInt()
-      .withMessage("Page must be a positive integer"),
-    check("limit")
-      .optional()
-      .isInt({ min: 1 })
-      .toInt()
-      .withMessage("Limit must be a positive integer"),
-
     async (req, res) => {
-      const errors = validationResult(req);
-      if (!errors.isEmpty())
-        return res.status(400).json({ errors: errors.array() });
-
-      const page = req.query.page || 1; // Already sanitized to integer by express-validator
-      const limit = req.query.limit || 10; // Already sanitized to integer by express-validator
-
       try {
-        const result = await Employee.findAll({ page, limit });
+        const result = await Employee.findAll();
         res.json(result);
       } catch (error) {
         console.error(error);

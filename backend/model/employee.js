@@ -36,24 +36,16 @@ const Employee = {
     return result.insertId;
   },
 
-  async findAll({ page = 1, limit = 10 }) {
-    // Ensure page and limit are valid integers
-    const safePage = Math.max(1, parseInt(page) || 1);
-    const safeLimit = Math.max(1, parseInt(limit) || 10);
-    const offset = (safePage - 1) * safeLimit;
-
+  async findAll() {
     const [employees] = await pool.query(
-      "SELECT * FROM employee_laptops LIMIT ? OFFSET ?",
-      [safeLimit, offset]
+      "SELECT * FROM employee_laptops"
     );
-    const [[{ total }]] = await pool.query(
-      "SELECT COUNT(*) as total FROM employee_laptops"
-    );
+    // const [[{ totalCount }]] = await pool.query(
+    //   "SELECT COUNT(*) as totalCount FROM employee_laptops"
+    // );
     return {
       employees,
-      total,
-      page: safePage,
-      pages: Math.ceil(total / safeLimit),
+      // totalCount
     };
   },
   async findAllPerPage(page = 1, limit = 10) {

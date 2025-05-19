@@ -27,7 +27,7 @@ export default function Navbar() {
   // }
 
   return (
-    <nav className="bg-gray-1000 text-black p-6 shadow-md flex justify-between font-light text-xl items-center">
+    <nav className="bg-gray-1000 text-black p-6 shadow-md flex justify-between font-light text-xl items-center font-sans">
       <Link href="/" className="text-2xl font-bold text-primary">
         EDS System
       </Link>

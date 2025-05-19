@@ -50,7 +50,7 @@ const userController = {
           { id: user.id, email: user.email },
           process.env.JWT_SECRET,
           {
-            expiresIn: "30m",
+            expiresIn: "1h",
           }
         );
         res.json({ message: "Login successful.", token });
